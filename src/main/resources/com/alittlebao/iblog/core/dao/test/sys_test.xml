@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 给映射文件声明一个名称空间 -->
+<mapper namespace="com.alittlebao.iblog.core.dao.test.SysTestDao">
+
+	<resultMap id="sysTest" type="SysTest">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="birDate" column="bir_date" />
+	</resultMap>
+
+	<!-- SQL -->
+	<sql id="testSelector">
+		SELECT
+		<if test="fields != null">
+			${fields}
+		</if>
+		<if test="fields == null">
+			id,name,bir_date
+		</if>
+		FROM sys_test
+	</sql>
+
+	<sql id="testListWhere">
+		<where>
+			<if test="id != null">
+				and id=#{id}
+			</if>
+			<if test="name != null">
+				<if test="nameLike == false">
+					and name=#{name}
+				</if>
+				<if test="nameLike == true">
+					and name like "%"#{name}"%"
+				</if>
+			</if>
+			<if test="birDate != null">
+				<if test="birDateLike == false">
+					and no=#{no}
+				</if>
+				<if test="birDateLike == true">
+					and no like "%"#{no}"%"
+				</if>
+			</if>
+		</where>
+	</sql>
+
+	<sql id="testListOrder">
+		<if test="orderFields != null and orderFields.size >0">
+			order by
+			<foreach collection="orderFields" separator="," item="orderField">
+				${orderField.fieldName} ${orderField.order}
+			</foreach>
+		</if>
+	</sql>
+
+	<sql id="testListLimit">
+		<if test="startRow != null">
+			limit #{startRow},#{pageSize}
+		</if>
+	</sql>
+
+	<!--插入 -->
+	<insert id="addRecord" parameterType="sysTest" useGeneratedKeys="true"
+		keyProperty="id">
+		INSERT INTO sys_test
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="birDate != null">
+				bir_date,
+			</if>
+		</trim>
+		VALUES
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="name != null">
+				#{name},
+			</if>
+			<if test="birDate != null">
+				#{birDate},
+			</if>
+		</trim>
+	</insert>
+	<insert id="addRecords" parameterType="hashMap">
+		INSERT INTO sys_test(
+		<if test="fields != null">
+			${fields}
+		</if>
+		<if test="fields == null">
+			name,bir_date
+		</if>
+		)
+		SELECT
+		<if test="fields2 != null">
+			${fields2}
+		</if>
+		<if test="fields2 == null">
+			name,bir_date
+		</if>
+		FROM ${tb2}
+		<if test="tb2Condition != null">
+			where ${tb2Condition}
+		</if>
+	</insert>
+
+	<!-- 删除 -->
+	<delete id="deleteById" parameterType="hashMap">
+		DELETE FROM sys_test
+		WHERE
+		ID=#{id}
+	</delete>
+	<delete id="deleteByIds" parameterType="hashMap">
+		DELETE FROM sys_test
+		WHERE
+		id IN
+		<foreach collection="list" separator="," item="id" open="("
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+
+	<!-- 更新 -->
+	<update id="updateRecord" parameterType="SysTest">
+		UPDATE sys_test
+		<set>
+			<trim suffixOverrides=",">
+				<if test="id != null">
+					id = #{id},
+				</if>
+				<if test="name != null">
+					name = #{name},
+				</if>
+				<if test="birDate != null">
+					bir_date = #{birDate},
+				</if>
+			</trim>
+		</set>
+		WHERE
+		ID=#{id}
+	</update>
+
+
+	<!-- 查询 -->
+	<select id="findById" resultMap="sysTest" parameterType="hashMap">
+		SELECT
+		ID,NAME,BIR_DATE FROM sys_test
+		WHERE
+		ID=#{id}
+	</select>
+	<select id="findByIds" resultMap="sysTest" parameterType="hashMap">
+		SELECT
+		ID,NAME,BIR_DATE FROM sys_test
+		WHERE
+		id IN
+		<foreach collection="list" separator="," item="id" open="("
+			close=")">
+			#{id}
+		</foreach>
+	</select>
+
+	<select id="findRecord" resultMap="sysTest" parameterType="hashMap">
+		<include refid="testSelector" />
+		<include refid="testListWhere" />
+		<include refid="testListOrder" />
+		<include refid="testListLimit" />
+	</select>
+
+</mapper>
