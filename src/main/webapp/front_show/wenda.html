@@ -1,0 +1,336 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>论坛界面</title>
+<link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="css/common.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="../../js/jquery-1.11.3.min.js"></script>
+<script language="javascript" src="../../js/bootstrap.min.js"></script>
+<style type="text/css">
+	.navbar-default{
+		background:#FFF;
+		
+	}
+	
+	.input_search{
+		border: #36F 1px solid;
+	}
+	
+	.aw-nav-tabs {
+    border-color: #e6e6e6;
+    margin: 0;
+    min-height: 63px;
+    padding: 30px 20px 0;
+    position: relative;
+    z-index: 1;
+}
+.aw-nav-tabs.active > li {
+    float: right;
+}
+.aw-nav-tabs > li {
+    font-size: 14px;
+    margin: 0 4px 0 0;
+}
+.aw-nav-tabs > li > a {
+    background-color: #fff;
+    border: medium none;
+    cursor: pointer;
+    line-height: 30px;
+    padding: 0 13px;
+}
+.aw-nav-tabs > li > a:hover {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #fff;
+    border-color: -moz-use-text-color -moz-use-text-color #155faa;
+    border-image: none;
+    border-style: none none solid;
+    border-width: medium medium 2px;
+    color: #333;
+}
+.aw-nav-tabs > li.active a {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #fff;
+    border-color: -moz-use-text-color -moz-use-text-color #155faa;
+    border-image: none;
+    border-style: none none solid;
+    border-width: medium medium 2px;
+    color: #333;
+    font-weight: 700;
+    line-height: 30px;
+}
+.aw-nav-tabs > li.active a:hover, .aw-nav-tabs > li.active a:focus, .aw-nav-tabs > li > a:focus {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #fff;
+    border-color: -moz-use-text-color -moz-use-text-color #155faa;
+    border-image: none;
+    border-style: none none solid;
+    border-width: medium medium 2px;
+}
+.aw-nav-tabs h2 {
+    font-size: 20px;
+    left: 20px;
+    margin: 0;
+    position: absolute;
+    top: 16px;
+}
+.aw-tabs {
+    border-bottom: 1px solid #e6e6e6;
+    height: 38px;
+    line-height: 38px;
+    padding: 0 20px;
+    text-align: center;
+}
+.aw-tabs li.active a {
+    color: #333;
+    font-weight: 700;
+}
+.aw-tabs ul li {
+    display: inline;
+}
+.aw-tabs ul li a {
+    margin: 0 10px;
+}
+
+.nav-tabs li.active{
+	border-bottom:#36C 1px solid;	
+}
+
+.aw-topic-name img {
+    height: 40px;
+    width: 40px;
+}
+
+.aw-topic-name a {
+    color: #155faa;
+    cursor: pointer;
+	font-size:16px;
+}
+.aw-topic-name a:hover {
+    color: #499ef3;
+    text-decoration: none;
+}
+.aw-topic-name a:focus {
+    outline: 0 none !important;
+}
+
+.aw-topic-name li{
+	border-bottom:#999 solid 1px;
+	
+}
+
+.mod-head h3{
+	font-family: "Helvetica Neue",STHeiti,"Microsoft YaHei",Helvetica,Arial,sans-serif;
+	font-size: 100%;
+    line-height: 1.7;
+    margin-top: 0;
+}
+</style>
+
+<script language="javascript">
+	$(function($){
+		$("#in_search").focus(function(){
+			$(this).addClass("input_search");
+		});
+		$("#in_search").blur(function(){
+			$(this).removeClass("input_search");
+		});
+	});
+</script>
+</head>
+
+<body>
+<nav class="navbar navbar-default"> 
+  <!--导航条占满整个屏幕宽度-->
+  <div class="container-fluid"> 
+    <!--折叠之后的效果-->
+    <div class="navbar-header"> 
+      <!--
+            class指定折叠按钮的样式
+            data-toggle：使用collapse插件，如果不加上这个属性，则无法将菜单展开
+            data-target：展开的目标菜单组件id
+            -->
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#index_menu"> 
+      <!--折叠按钮上的横线，一个span代表一条横线--> 
+      <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> 
+      <!--<span class="glyphicon glyphicon-user"></span>--> 
+      </button>
+    </div>
+    
+    <!--导航条上面的菜单-->
+    <div  class="collapse navbar-collapse" id="index_menu">
+      <form class="navbar-form navbar-left" role="search">
+        <!--<div class="form-group">
+          <input type="text" class="form-control" placeholder="搜索问题、话题或者人">
+          <span class="glyphicon glyphicon-zoom-in" ></span>
+        </div>-->
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="搜索问题、话题或者人" aria-describedby="basic-addon2" id="in_search">
+          <span class="input-group-addon" id="basic-addon2">搜索</span>
+          
+        </div>
+        <span class="glyphicon glyphicon-align-justify" style="margin-left:20px"></span>
+        <span style="margin-left:5px">发现</span>
+      </form>
+      
+       <form class="navbar-form navbar-right" role="search">
+       
+      
+          <button type="button" class="btn btn-primary">登录</button>
+          <button type="button" class="btn btn-success">注册</button>
+      
+      </form>
+    </div>
+  </div>
+</nav>
+<div class="container">
+	<div class="col-md-8" style="background:#FFF">
+    <ul class="nav nav-tabs aw-nav-tabs active hidden-xs">
+						<li><a href="http://wenda.ghostchina.com/sort_type-unresponsive">等待回复</a></li>
+						<li><a id="sort_control_hot" href="http://wenda.ghostchina.com/sort_type-hot__day-7">热门</a></li>
+						<li><a href="http://wenda.ghostchina.com/is_recommend-1">推荐</a></li>
+						<li class="active"><a href="">最新</a></li>
+
+						<h2 class="hidden-xs"><span class="glyphicon glyphicon-list"></span> 发现</h2>
+					</ul>
+                    
+         
+         <!--论坛内容-->
+         <ul class="media-list aw-topic-name" style="margin-top:20px">
+          <li class="media">
+            <div class="media-left">
+              <a href="#">
+                <img class="media-object" src="imgs/cat.png" alt="cat...">
+              </a>
+            </div>
+            <div class="media-body">
+              <h4>
+						<a href="http://wenda.ghostchina.com/article/171">分享一款主题，喜欢的话请下载使用。支持响应式</a>
+					</h4>
+                    
+              <p>Ghost目前提供的Helper，仅可以实现遍历所有文章，和遍历指定标签中的所有文章。而没有控制文章的遍历数量。
+
+我使用Ghost搭建公司的网站，在首页想显示“资讯动态”的文章，因为有很多其他的文章栏目，所以“资讯动态”栏目不可能把该标签的文章全部展示出来，... </p>
+            </div>
+          </li>
+          
+          <li class="media">
+            <div class="media-left">
+              <a href="#">
+                <img class="media-object" src="imgs/cat.png" alt="cat...">
+              </a>
+            </div>
+            <div class="media-body">
+              <h4>
+						<a href="http://wenda.ghostchina.com/article/171">分享一款主题，喜欢的话请下载使用。支持响应式</a>
+					</h4>
+                    
+              <p>Ghost目前提供的Helper，仅可以实现遍历所有文章，和遍历指定标签中的所有文章。而没有控制文章的遍历数量。
+
+我使用Ghost搭建公司的网站，在首页想显示“资讯动态”的文章，因为有很多其他的文章栏目，所以“资讯动态”栏目不可能把该标签的文章全部展示出来，... </p>
+            </div>
+          </li>
+          <li class="media">
+            <div class="media-left">
+              <a href="#">
+                <img class="media-object" src="imgs/cat.png" alt="cat...">
+              </a>
+            </div>
+            <div class="media-body">
+              <h4>
+						<a href="http://wenda.ghostchina.com/article/171">分享一款主题，喜欢的话请下载使用。支持响应式</a>
+					</h4>
+                    
+              <p>Ghost目前提供的Helper，仅可以实现遍历所有文章，和遍历指定标签中的所有文章。而没有控制文章的遍历数量。
+
+我使用Ghost搭建公司的网站，在首页想显示“资讯动态”的文章，因为有很多其他的文章栏目，所以“资讯动态”栏目不可能把该标签的文章全部展示出来，... </p>
+            </div>
+          </li>
+        </ul>
+        
+        
+        <nav>
+  <ul class="pagination">
+    <li>
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+    </div>
+    <div class="col-md-4" style="background:#FFF;border-left:solid #999 1px">
+    <div class="mod-head aw-topic-name">
+    	<h3>热门话题</h3>
+		<!--<a class="pull-right" href="http://wenda.ghostchina.com/topic/channel-hot">更多 &gt;</a>-->
+		
+        <ul class="media-list">
+          <li class="media">
+            <div class="media-left">
+              <a href="#">
+                <img class="media-object" src="imgs/cat.png" alt="...">
+              </a>
+            </div>
+            <div class="media-body">
+              <h4 class="media-heading">HAKUNA_MATATA </h4>
+              <p>0 个问题, 0 次赞同</p>
+            </div>
+          </li>
+           <li class="media">
+            <div class="media-left">
+              <a href="#">
+                <img class="media-object" src="imgs/cat.png" alt="...">
+              </a>
+            </div>
+            <div class="media-body">
+              <h4 class="media-heading">HAKUNA_MATATA </h4>
+              <p>0 个问题, 0 次赞同</p>
+            </div>
+          </li>
+           <li class="media">
+            <div class="media-left">
+              <a href="#">
+                <img class="media-object" src="imgs/cat.png" alt="...">
+              </a>
+            </div>
+            <div class="media-body">
+              <h4 class="media-heading">HAKUNA_MATATA </h4>
+              <p>0 个问题, 0 次赞同</p>
+            </div>
+          </li>
+           <li class="media">
+            <div class="media-left">
+              <a href="#">
+                <img class="media-object" src="imgs/cat.png" alt="...">
+              </a>
+            </div>
+            <div class="media-body">
+              <h4 class="media-heading">HAKUNA_MATATA </h4>
+              <p>0 个问题, 0 次赞同</p>
+            </div>
+          </li>
+        </ul>
+	</div>
+    </div>
+</div>
+</body>
+</html>

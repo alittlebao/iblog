@@ -3,24 +3,30 @@ package iblog.core;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Before;
+import javax.annotation.Resource;
+
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alittlebao.iblog.core.domain.SysTest;
 import com.alittlebao.iblog.core.service.SysTestService;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:application_context.xml")
 public class SysTestTest {
 
-	private ApplicationContext context;
+	@Resource
 	private SysTestService sysTestService;
 
-	@Before
-	public void init() {
-		context = new ClassPathXmlApplicationContext("classpath:application_context.xml");
-		sysTestService = (SysTestService) context.getBean("sysTestService");
-	}
+	// private ApplicationContext context;
+	// @Before
+	// public void init() {
+	// context = new
+	// ClassPathXmlApplicationContext("classpath:application_context.xml");
+	// sysTestService = (SysTestService) context.getBean("sysTestService");
+	// }
 
 	@Test
 	public void testFindById() {
